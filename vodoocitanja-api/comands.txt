@@ -4,6 +4,7 @@ docker exec -it readings-webserver /bin/bash
 composer install
 php aritsan migrate
 --- or outside
+docker exec readings-webserver composer install
 docker exec readings-webserver php artisan migrate
 
 ------- stop and delete ALL containers and images
