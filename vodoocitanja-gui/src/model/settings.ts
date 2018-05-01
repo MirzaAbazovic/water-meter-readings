@@ -1,7 +1,9 @@
 export class Settings {
     offlineMode = false ;
     backendProviders = [
-        {name: 'VITKOM ',apiUrl:'https://vitkom.ba/api'},
-        {name:'KOMBUSOVACA', apiUrl:'https://kombusovaca.com/api'}]
+        {
+            name:'LOCALHOST', 
+            apiUrl:'http://localhost:81/api'}
+        ];
     selectedProvider = this.backendProviders[0]
 }

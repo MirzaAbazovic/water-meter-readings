@@ -27,8 +27,7 @@ export function provideSettings(storage: Storage) {
    */
   return new Settings(storage, {
     offline: false,
-    apiUrl: 'https://vitkom.ba/api'
-    //apiUrl: 'http://localhost:81/api'
+    apiUrl: 'http://localhost:81/api'
   });
 }
 @NgModule({
