@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-searchbar placeholder="Pretraga" (ionInput)="filterReadings($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ion-list>
+    <ion-card *ngFor="let reading of readings">
+      <!-- <ion-card-header>      </ion-card-header> -->
+      <ion-card-content>
+        <ion-item-divider color="light">{{reading.naziv_korisnika}} </ion-item-divider>
+        <!-- <ion-item>
+        <ion-icon name="contact"></ion-icon> {{reading.naziv_korisnika}}
+      </ion-item> -->
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <i class="fa fa-home"></i> {{reading.kucni_broj}}
+            </ion-col>
+            <ion-col>
+              <ion-icon name="speedometer"></ion-icon> {{reading.serijski_broj_vod}}
+
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              Prošlo stanje: {{reading.zadnje_stanje}}
+            </ion-col>
+            <ion-col>
+              <ion-item>
+                <ion-label floating>Novo očitanje</ion-label>
+                <ion-input type="number" [(ngModel)]="reading.ocitano_stanje" (keyup)="newReading$.next({newReading:$event.target.value, reading : reading})"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-list>
+          <ion-item>
+            <ion-label>Reset brojila</ion-label>
+            <ion-checkbox color="danger" [checked]="reading.reset_brojila"></ion-checkbox>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Očitano</ion-label>
+            <ion-checkbox [checked]="reading.ocitano_stanje"></ion-checkbox>
+          </ion-item>
+        </ion-list>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label floating>Napomena</ion-label>
+                <ion-input type="text" [(ngModel)]="reading.napomena"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <!-- <ion-title> {{total}} {{read}} {{unread}} </ion-title> -->
+    <!-- <ion-buttons end>
+        <button ion-button icon-right color="royal">
+          <i class="fa fa-road"></i>
+        </button>
+      </ion-buttons> -->
+      <ion-title>{{streetName}}</ion-title>
+    <ion-buttons start>
+        <button ion-button icon-only (click)="goBack()">
+          <ion-icon name="arrow-round-back"></ion-icon>
+        </button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

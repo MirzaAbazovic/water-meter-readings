@@ -1,0 +1,20 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Ulice</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <button ion-item *ngFor="let street of streets" (click)="streetSelected(street)">
+      <!-- <street [street]=street></street> -->
+      {{street.naziv_ulice}}  
+      <ion-badge item-end> {{street.total}} </ion-badge> 
+      <ion-badge item-end color="secondary"> {{street.ocitano}} </ion-badge>
+      <ion-badge item-end color="danger"> {{street.neocitano}} </ion-badge>  
+    </button>  
+  </ion-list>
+</ion-content>

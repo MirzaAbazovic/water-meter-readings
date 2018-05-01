@@ -1,0 +1,31 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Postavke</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="form" *ngIf="settingsReady">
+    <ion-list>
+      <ion-item>
+        <ion-label>Offline rad</ion-label>
+        <ion-toggle formControlName="offline"></ion-toggle>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Server</ion-label>
+        <ion-select formControlName="apiUrl">
+          <ion-option value="https://kombusovaca.com/api" checked="true">KOMBUSOVACA</ion-option> -->
+          <ion-option value="https://vitkom.ba/api">VITKOM</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+  </form>
+  <button ion-button icon-only (click)="home()">
+    <ion-icon name="home"></ion-icon>
+  </button>
+</ion-content>

@@ -1,0 +1,15 @@
+#once
+keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000
+
+
+
+ionic cordova build android --prod --release
+
+copy platforms\android\build\outputs\apk\android-release-unsigned.apk android-release-unsigned.apk
+
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore android-release-unsigned.apk alias_name
+
+
+pass 123123
+
+C:\Users\mir\AppData\Local\Android\Sdk\build-tools\27.0.3\zipalign -v 4 android-release-unsigned.apk myapp-signed.apk

@@ -1,0 +1,62 @@
+<form [formGroup]="readingForm">
+  <ion-card>
+    <ion-card-content>
+      <ion-item-divider color="light">{{reading.naziv_korisnika}} 
+      </ion-item-divider>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            Prošlo stanje: {{reading.zadnje_stanje | number:'1.0-0':'de'}} ({{reading.datum_zadnjeg_ocitanja | date:'dd.MM.yyy'}})
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label floating>Novo očitanje</ion-label>
+              <ion-input formControlName="ocitano_stanje" type="tel" pattern="[0-9]*"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>Reset</ion-label>
+              <ion-checkbox color="danger" formControlName="reset_brojila"></ion-checkbox>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-label>Očitano</ion-label>
+              <ion-checkbox formControlName="status_ocitanja"></ion-checkbox>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label floating>Napomena</ion-label>
+              <ion-input type="text" formControlName="napomena"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <i class="fa fa-home"></i> {{reading.kucni_broj}}
+          </ion-col>
+          <ion-col>
+            <ion-icon name="speedometer"></ion-icon> {{reading.serijski_broj_vod}}
+          </ion-col>
+          <ion-col>
+            <b *ngIf="reading.vodomjer_nadvodomjer==1">NADVODOMJER</b>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</form>

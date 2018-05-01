@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-searchbar placeholder="Pretraga" (ionInput)="filterReadings($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <div *ngIf="readings; else noReadings">
+    <div *ngFor="let r of readings">
+      <!-- {{r | json}} -->
+      <app-reading [reading]="r"></app-reading>
+    </div>
+  </div>
+  <ng-template #noReadings>
+    Nema ocitanja.
+  </ng-template>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>{{streetName}}</ion-title>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

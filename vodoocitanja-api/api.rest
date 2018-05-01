@@ -1,0 +1,174 @@
+@apiUrl = http://localhost:81/api
+@apiVer = application/x.readings.v1+json
+
+// admin user to register
+@first_name_admin = Pero
+@last_name_admin = Jonjić
+@username_admin = jonjic
+@email_admin = pero.jonjic@gmail.com
+@password_admin = lozinka
+
+// reader user to register
+@first_name_reader = Mirza
+@last_name_reader = Abazović
+@username_reader = abazovic
+@email_reader = mirza.abazovic@gmail.com
+@password_reader = lozinka
+
+// id of user from core (other) system to assign readings to reader
+// and to export/import readings from/to core system
+@user_id_reader = 12345
+
+//token - updated every time by login of user 
+@token_admin = DvcU8TEmlaSi8CbySTZbMyV3cGYsEvKHxjLrpy80Z87J8EASOi
+@token_reader = y2yTxZWXevUDXa5S3xZ5tIBD6deR7RURtZOVFgB2hQhjIN1vHl
+
+
+###ping api V1
+GET {{apiUrl}}/ping HTTP/1.1
+Accept: application/x.readings.v1+json
+
+###ping api V2
+GET {{apiUrl}}/ping HTTP/1.1
+Accept: application/x.readings.v2+json
+
+### register admin user 
+POST {{apiUrl}}/auth/register HTTP/1.1
+Content-Type: application/json
+Accept: application/x.readings.v1+json
+
+{
+    "username": "{{username_admin}}",
+    "email": "{{email_admin}}",
+    "first_name": "{{first_name_admin}}",
+    "last_name": "{{last_name_admin}}",
+    "password": "{{password_admin}}",
+    "role": "admin"
+}
+
+### register reader user
+POST {{apiUrl}}/auth/register HTTP/1.1
+Content-Type: application/json
+Accept: {{apiVer}}
+
+{
+    "username": "{{username_reader}}",
+    "email": "{{email_reader}}",
+    "first_name": "{{first_name_reader}}",
+    "last_name": "{{last_name_reader}}",
+    "password": "{{password_reader}}",
+    "user_id_readings": "{{user_id_reader}}",
+    "role": "reader"
+}
+
+### login - get api_key for admin
+POST {{apiUrl}}/auth/login HTTP/1.1
+Content-Type: application/json
+Accept: {{apiVer}}
+
+{
+    "username": "{{username_admin}}",
+    "password": "{{password_admin}}"
+}
+
+### login - get api_key for reader
+POST {{apiUrl}}/auth/login HTTP/1.1
+Content-Type: application/json
+Accept: {{apiVer}}
+
+{
+    "username": "{{username_reader}}",
+    "password": "{{password_reader}}"
+}
+
+
+### add new reading token in url - samo admin moze da dodaje novo ocitanje
+POST {{apiUrl}}/readings?api_token={{token_admin}} HTTP/1.1
+Content-Type: application/json
+Accept: {{apiVer}}
+
+{
+    "sifra_zone": "1",
+    "naziv_zone": "ZONA 1",
+    "sifra_vodomjera": "455678824",
+    "naziv_korisnika": "Halid Bešlić",
+    "sifra_ulice": "122",
+    "naziv_ulice": "Rudarska",
+    "kucni_broj": "32",
+    "oznaka_ulaza": "",
+    "serijski_broj_vod": "234234222",
+    "nacin_ocitavanja": "",
+    "tip_ocitavanja": "",
+    "broj_modula": "",
+    "datum_zadnjeg_ocitanja": "2018-05-05 00:00:00",
+    "zadnje_stanje": 223,
+    "mjesec_godina": "062018",
+    "aktivno": true,
+    "user_id_readings": "{{user_id_reader}}"
+}
+
+### add new reading Auth in header - samo admin moze da dodaje novo ocitanje
+POST {{apiUrl}}/readings HTTP/1.1
+Content-Type: application/json
+Accept: application/x.readings.v1+json
+Authorization: Bearer {{token_admin}}
+
+{
+    "sifra_zone": "1",
+    "naziv_zone": "ZONA 1",
+    "sifra_vodomjera": "455678824",
+    "naziv_korisnika": "Hanka Paldum",
+    "sifra_ulice": "122",
+    "naziv_ulice": "Rudarska",
+    "kucni_broj": "21",
+    "oznaka_ulaza": "",
+    "serijski_broj_vod": "192348761234",
+    "nacin_ocitavanja": "",
+    "tip_ocitavanja": "",
+    "broj_modula": "",
+    "datum_zadnjeg_ocitanja": "2018-05-05 00:00:00",
+    "zadnje_stanje": 4723,
+    "mjesec_godina": "062018",
+    "aktivno": true,
+    "user_id_readings": "{{user_id_reader}}"
+    }
+
+### get readings as admin url auth - dobija sva ocitanja
+GET {{apiUrl}}/readings?api_token={{token_admin}} HTTP/1.1
+Accept: application/x.readings.v1+json
+
+
+### get readings grouped by street
+GET {{apiUrl}}/readings/streets HTTP/1.1
+Authorization: Bearer {{token_reader}}
+Accept: {{apiVer}}
+
+### get readings as reader - dobija samo svoja ocitanja (user_id_readings) i koja su aktivna (aktivno)
+GET {{apiUrl}}/readings HTTP/1.1
+Authorization: Bearer {{token_reader}}
+Accept: {{apiVer}}
+
+### get specific reading with id 5 as reader
+GET {{apiUrl}}/readings/5 HTTP/1.1
+Authorization: Bearer {{token_reader}}
+Accept: {{apiVer}}
+
+### update reading as reader - moze da uradi update samo svog aktivnog ocitanja
+PUT {{apiUrl}}/readings/5 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token_reader}}
+Accept: {{apiVer}}
+
+{
+    "ocitano_stanje": 34222.4224,
+    "datum_ocitanja": "2017-05-05:12:12:10",
+    "reset_brojila": 0,
+    "napomena": "opasan pas kod vodomjera",
+    "lokacija_ocitanja": "lat:43.8490737|lon:18.393585299999998"
+}
+
+
+### get readings for street with id 122
+GET {{apiUrl}}/readings/street/122 HTTP/1.1
+Authorization: Bearer {{token_reader}}
+Accept: {{apiVer}}

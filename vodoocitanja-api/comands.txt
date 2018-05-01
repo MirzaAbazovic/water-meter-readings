@@ -1,0 +1,15 @@
+--- enter container
+docker exec -it readings-webserver /bin/bash
+--- execute commands inside container
+composer install
+php aritsan migrate
+--- or outside
+docker exec readings-webserver php artisan migrate
+
+------- stop and delete ALL containers and images
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+docker rmi $(docker images -a -q) -f
+docker volume rm $(docker volume ls -f dangling=true -q)
+
+

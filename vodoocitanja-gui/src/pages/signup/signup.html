@@ -1,0 +1,54 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Registracija</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    
+      <ion-item>
+        <ion-label stacked>Ime</ion-label>
+        <ion-input type="text"  [(ngModel)]="userData.first_name"></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label stacked>Prezime</ion-label>
+        <ion-input type="text"  [(ngModel)]="userData.last_name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Email</ion-label>
+        <ion-input type="text"  [(ngModel)]="userData.email"></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label stacked>Korisničko ime</ion-label>
+        <ion-input type="text"  [(ngModel)]="userData.username"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>User Id Readings</ion-label>
+        <ion-input type="text" [(ngModel)]="userData.user_id_readings"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Lozinka</ion-label>
+        <ion-input type="password" [(ngModel)]="userData.password"></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label stacked>Lozinka ponovo</ion-label>
+        <ion-input type="password" [(ngModel)]="userData.passwordConfirm"></ion-input>
+      </ion-item>
+      <button ion-button block color="primary" (click)="signup()">Registracija</button>
+      
+      <button ion-button icon-only (click)="home()">
+        <ion-icon name="home"></ion-icon>
+      </button>
+    
+    </ion-list>
+    
+</ion-content>

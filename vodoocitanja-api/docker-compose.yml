@@ -1,0 +1,63 @@
+version: "3"
+
+services:
+  webserver:
+    build: 
+      context: ./bin/webserver
+    container_name: 'readings-webserver'
+    restart: 'always'
+    ports:
+      - "81:80"
+      - "444:443"
+    links: 
+      - mariadb
+    volumes: 
+      - ./www:/var/www/html
+      - ./config/php/php.ini:/usr/local/etc/php/php.ini
+      - ./config/vhosts:/etc/apache2/sites-enabled
+      - ./logs/apache2:/var/log/apache2
+    #environment:
+    #  XDEBUG_CONFIG: remote_host=192.168.1.6
+  mariadb:
+    build: ./bin/mariadb
+    container_name: 'mariadb'
+    restart: 'always'
+    ports:
+      - "3306:3306"
+    volumes:
+      - vodoocitanja-db:/var/lib/mysql
+      #- ./logs/mariadb:/var/log/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: kombusov_mob
+      MYSQL_USER: kombusov_smart
+      MYSQL_PASSWORD: 0658/*-
+  # mysql:
+  #   build: ./bin/mysql
+  #   container_name: 'mysql'
+  #   restart: 'always'
+  #   ports:
+  #     - "3306:3306"
+  #   volumes: 
+  #     - ${MYSQL_DATA_DIR-./data/mysql}:/var/lib/mysql
+  #     - ${MYSQL_LOG_DIR-./logs/mysql}:/var/log/mysql
+  #     #- ${MYSQL_DATA_DIR}/init.sql:/docker-entrypoint-initdb.d/init.sql
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: kombusov_mob
+  #     MYSQL_USER: kombusov_smart
+  #     MYSQL_PASSWORD: 0658/*-
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: 'phpmyadmin'
+    links:
+      - mariadb
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+    ports:
+      - '8080:80'
+    volumes: 
+      - /sessions
+volumes:
+  vodoocitanja-db:

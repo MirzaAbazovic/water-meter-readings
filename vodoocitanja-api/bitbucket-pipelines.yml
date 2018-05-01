@@ -1,0 +1,28 @@
+image: php:7.1.10
+
+pipelines:
+  default:
+    - step:
+        caches:
+          - composer
+        script:
+          - apt-get update && apt-get install -y unzip && apt-get install -y git-ftp
+          - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+          - cd www
+          - composer install
+          - vendor/bin/phpunit
+          #- cd ..
+          #- git config git-ftp.syncroot www/
+          #- git ftp init --user $FTP_USERNAME --passwd $FTP_PASSWORD  ftp://ftp.kombusovaca.com/public_html/readings_api
+          #- git ftp push --user $FTP_USERNAME --passwd $FTP_PASSWORD  ftp://ftp.kombusovaca.com/public_html/readings_api
+        services:
+          - maraidb
+definitions: 
+  services: 
+    maraidb: 
+      image: mariadb:10.0.32
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: kombusov_mob
+        MYSQL_USER: kombusov_smart
+        MYSQL_PASSWORD: 0658/*-
