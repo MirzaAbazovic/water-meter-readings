@@ -8,7 +8,7 @@ Backend for mobile app for water meters reading. REST api writen in php (Lumen) 
 2. ```cd water-meter-readings\vodoocitanja-api\```
 3. Run database and server containers ```docker-compose up```
 4. Run database migratons ```docker exec readings-webserver php artisan migrate```
-5. Try api (on http://localhost:81) using postman [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/b23e4142a3e5864d2b4e) or with file file api.rest in VS code using plugin [rest-client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
+5. Try api (on http://localhost:81/api) using postman [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/b23e4142a3e5864d2b4e) or with file file api.rest in VS code using plugin [rest-client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 
 ## Vodocitanja IONIC GUI ##
 0. Install node
