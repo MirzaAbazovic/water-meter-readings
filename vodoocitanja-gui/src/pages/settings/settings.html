@@ -18,11 +18,10 @@
       <ion-item>
         <ion-label>Server</ion-label>
         <ion-select formControlName="apiUrl">
-          <ion-option value="http://localhost:81/api" checked="true">LOCALHOST</ion-option> 
+          <ion-option *ngFor = "let api of apis" [value]="api.url"> {{api.name}} </ion-option>
         </ion-select>
       </ion-item>
     </ion-list>
-
   </form>
   <button ion-button icon-only (click)="home()">
     <ion-icon name="home"></ion-icon>

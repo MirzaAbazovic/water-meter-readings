@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Settings } from '../../providers/settings/settings';
+import { HttpClient } from '@angular/common/http';
 
 @IonicPage()
 @Component({
@@ -13,12 +14,20 @@ export class SettingsPage {
   options: any;
   settingsReady = false;
   form: FormGroup;
+  apis;
 
   constructor(public navCtrl: NavController,
     public settings: Settings,
     public formBuilder: FormBuilder,
     public navParams: NavParams,
-    ) {}
+    private http:HttpClient
+    ) {
+      this.http.get('assets/config.json').subscribe(p=>{
+        console.log(p);
+        debugger;
+        this.apis = p['apis'];
+      });
+    }
 
   _buildForm() {
     let group: any = {

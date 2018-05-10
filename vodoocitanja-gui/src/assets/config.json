@@ -1,0 +1,6 @@
+{"apis":
+    [
+        {"url":"https://vitkom.ba/api","name":"VITKOM"},
+        {"url":"https://kombusovaca.com/api","name":"KOMBUSOVACA"}
+    ]
+}

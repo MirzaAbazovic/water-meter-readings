@@ -3,11 +3,10 @@
     <ion-searchbar placeholder="Pretraga" (ionInput)="filterReadings($event)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
-<ion-content padding>
+<ion-content padding> 
   <div *ngIf="readings; else noReadings">
-    <div *ngFor="let r of readings">
-      <!-- {{r | json}} -->
-      <app-reading [reading]="r"></app-reading>
+    <div *ngFor="let reading of readings">
+      <app-reading [reading]="reading"></app-reading>
     </div>
   </div>
   <ng-template #noReadings>

@@ -48,9 +48,13 @@ class ReadingController extends Controller
             $data = Reading::all()->where('sifra_ulice', $street_id);
             return response()->json(['readings' => $data], 200);
         }
-        $readings = DB::select('select * from `readings` where user_id_readings = ? and aktivno = 1 and sifra_ulice=?', [ Auth::user()->user_id_readings, $street_id]);
-        // return response()->json(['readings'=> Auth::user()->readings->where('sifra_ulice', $street_id)],200);
-    
+        //$data = Reading::all()->where('sifra_ulice', $street_id);
+        $readings = DB::table('readings')->where([
+            ['aktivno','=','1'],
+            ['sifra_ulice','=', $street_id],
+            ['user_id_readings','=', Auth::user()->user_id_readings]
+            ])->get();
+        //$readings = DB::select('select * from `readings` where user_id_readings = ? and aktivno = 1 and sifra_ulice=?', [ Auth::user()->user_id_readings, $street_id]);
         return response()->json(['readings'=> $readings],200);
     }
 

@@ -18,5 +18,6 @@ Backend for mobile app for water meters reading. REST api writen in php (Lumen) 
 4. ```npm run ionic:serve```
 6. Go to http://localhost:8100/#/signup and register user. Click home icon then Click PRIJAVA to login.
 
+App for android is on playstore https://play.google.com/store/apps/details?id=ba.smart_soft.readings
 
 :smiley:

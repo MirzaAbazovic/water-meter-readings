@@ -23,6 +23,7 @@ export class ReadingsForStreetPage {
   streetName = '';
   readings = [];
   allReadings = [];
+
   // newReading$ = new Subject<{ newReading: string, reading: {zadnje_stanje: string, ocitano_stanje: boolean} }>();
   loading: Loading;
   constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController,
@@ -34,12 +35,10 @@ export class ReadingsForStreetPage {
   ionViewWillEnter() {
     this.loading = this.loadingCtrl.create();
     this.loading.present();
-
     this.streetsProvider.getReadingsForStreet(this.streetId).subscribe((data) => {
-      console.log('data', data);
-
+      //console.log('data', data);
       this.loading.dismiss();
-      if (data && data.length > 0) {
+      if (data.length > 0) {
         this.readings = data
           .sort((a, b) => {
             if (a.kucni_broj === b.kucni_broj)
@@ -66,8 +65,12 @@ export class ReadingsForStreetPage {
     var val = ev.target.value;
     if (val && val.trim() != '') {
       this.readings = this.readings.filter((reading) => {
-        if (reading.naziv_korisnika !== null && reading.serijski_broj_vod !== null) {
-          return (reading.naziv_korisnika.toLowerCase().indexOf(val.toLowerCase()) > -1 || reading.serijski_broj_vod.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        if (reading.naziv_korisnika !== null ) {
+          //if (reading.naziv_korisnika !== null || reading.serijski_broj_vod !== null) {
+          console.log(reading.naziv_korisnika);
+          console.log(val);
+        //  return (reading.naziv_korisnika.toLowerCase().indexOf(val.toLowerCase()) > -1 || reading.serijski_broj_vod.toLowerCase().indexOf(val.toLowerCase()) > -1);
+          return (reading.naziv_korisnika.toLowerCase().indexOf(val.toLowerCase()) > -1 );
         }
       })
     }
